@@ -1,0 +1,152 @@
+<div class="container" *ngIf="uye | async as user">
+
+  <div class="text-center">
+    <h1> <b> Üyeler</b></h1>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="user.rol!=='1'">
+    <h3>Buraya girmeye Yetkiniz Yoktur</h3>
+  </div>
+
+
+
+
+
+  <button class="btn  btn-warning mb-2" (click)="Ekle(ModalEkleDuzenle)" [disabled]="user.rol!=='1'"><i
+      class="bi bi-plus-lg" style="color:#000000 ;"></i> Üye Ekle</button>
+  <!-- <button class="btn  btn-warning mb-2" ><i class="bi bi-plus-lg" style="color:#000000 ;"></i> Üye Ekle</button> -->
+
+  <table class="table table-hover table-striped" *ngIf="user.rol=='1'">
+    <thead class="thead-dark">
+      <th>Id</th>
+      <th>Ad Soyad</th>
+      <th>Yaş</th>
+      <th>E-Posta</th>
+
+      <th>Rol</th>
+      <th>Düzenle</th>
+      <th>Sil</th>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr *ngFor="let uye of uyeler">
+        <td>{{uye.uid}}</td>
+        <td>{{uye.displayName}}</td>
+        <td>{{uye.yas}}</td>
+        <td>{{uye.email}}</td>
+
+
+        <td>
+          <h5><span *ngIf="uye.rol=='1'" class="badge bg-warning">Admin</span></h5>
+          <h5><span *ngIf="uye.rol=='2'" class="badge bg-dark">Öğretim Üyesi</span></h5>
+          <h5><span *ngIf="uye.rol=='3'" class="badge bg-success">Öğrenci</span></h5>
+        </td>
+
+        <td><button class="btn  btn-warning rounded-circle" (click)="Duzenle(uye,ModalEkleDuzenle)"><i
+              class="bi bi-pencil-square" style="color:#000000 ;"></i></button></td>
+
+        <td><button class="btn  btn-danger  rounded-circle" (click)="Sil(uye,ModalSil)"><i class="bi bi-trash3"
+              style="color:#000000 ;"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal" tabindex="-1" #ModalEkleDuzenle>
+    <div class="modal-dialog">
+      <form [formGroup]="frm" (ngSubmit)="UyeEkleDuzenle()">
+        <div class="modal-content">
+          <div class="modal-header bg-warning text-black">
+            <h5 class="modal-title">{{modalBaslik}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="hidden" class="form-control" formControlName="uid">
+              <label>Ad Soyad</label>
+              <input type="text" class="form-control mt-1" formControlName="displayName">
+              <label>Yaş</label>
+              <input type="text" class="form-control mt-1" formControlName="yas">
+              <label>E-Posta</label>
+              <input type="text" class="form-control mt-1" formControlName="email" #email>
+              <label>Parola</label>
+              <input type="text" class="form-control mt-1" formControlName="parola" #parola>
+
+              <label>Rol</label>
+              <select class="form-control mt-1" formControlName="rol">
+                <option value="1">Admin</option>
+                <option value="2">Öğretim Üyesi</option>
+                <option value="3">Öğrenci</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-warning" value="Kaydet">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="modal" tabindex="-1" #ModalSil>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-black">
+          <h5 class="modal-title">{{modalBaslik}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h6 *ngIf="secUye"> <b>{{secUye.displayName}}</b> Adlı Üye Silinecektir Onaylıyor Musunuz ?</h6>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" (click)="UyeSil()">Sil</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+
+
+<!-- 
+<div class="modal" tabindex="-1" #ModalEkleDuzenle>
+  <div class="modal-dialog">
+    <form [formGroup]="frm" (ngSubmit)="UyeEkleDuzenle()">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-black">
+          <h5 class="modal-title">{{modalBaslik}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="hidden" class="form-control" formControlName="uid">
+            <label>Ad Soyad</label>
+            <input type="text" class="form-control mt-1" formControlName="adsoyad">
+            <label>Yaş</label>
+            <input type="text" class="form-control mt-1" formControlName="yas">
+            <label>E-Posta</label>
+            <input type="text" class="form-control mt-1" formControlName="mail">
+            <label>Rol</label>
+            <select class="form-control mt-1" formControlName="rol">
+              <option value="1">Admin</option>
+              <option value="2">Öğretim Üyesi</option>
+              <option value="3">Öğrenci</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-warning"  value="Kaydet">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->

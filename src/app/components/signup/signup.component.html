@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row justify-content-center ">
+    <div class="col-md-5 ">
+      <div class="card">
+        <div class="card-header bg-warning text-black">
+          <h4 class="card-title">Kayıt Ol</h4>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>Ad Soyad</label>
+            <input type="text" class="form-control mt-1" placeholder="Ad Soyad" #adsoyad>
+          </div>
+          <div class="form-group">
+            <label>E-posta</label>
+            <input type="text" class="form-control mt-1" placeholder="E-Posta" #email>
+          </div>
+          <div class="form-group">
+            <label>Yaş</label>
+            <input type="text" class="form-control mt-1" placeholder="Yaş" #yas>
+          </div>
+          <div class="form-group">
+            <label>Parola</label>
+            <input type="text" class="form-control mt-1" placeholder="Parola" #parola>
+          </div>
+
+
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-warning" (click)="UyeOl(adsoyad.value,email.value,parola.value,yas.value)">Kayıt Ol </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "final-int-prog": {
+      "hosting": {
+        "egitim_portali": [
+          "final-int-prog"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "final-int-prog"
+  }
+}
